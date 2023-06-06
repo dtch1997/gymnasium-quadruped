@@ -1,3 +1,9 @@
+runs
+wandb
+videos
+learning/runs
+learning/wandb
+learning/videos
 docs/source
 
 # From https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore
