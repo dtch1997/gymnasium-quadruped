@@ -11,12 +11,21 @@ Gymnasium environment for training quadruped legged robots
 - **Github repository**: <https://github.com/dtch1997/gymnasium-quadruped/>
 - **Documentation** <https://dtch1997.github.io/gymnasium-quadruped/>
 
-## Getting started with your project
+## Getting started
 
 Install the environment and the pre-commit hooks with 
 
 ```bash
 make install
+```
+
+## Learning
+
+This repository contains a simple PPO implementation in `learning/ppo.py`, adapted from [CleanRL](https://github.com/vwxyzjn/cleanrl).
+
+To install learning-related dependencies, run:
+```bash
+poetry install --with learning
 ```
 
 ## Contributing 
