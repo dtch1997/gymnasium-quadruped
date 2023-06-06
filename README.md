@@ -23,7 +23,7 @@ make install
 
 This repository contains a simple PPO implementation in `learning/ppo.py`, adapted from [CleanRL](https://github.com/vwxyzjn/cleanrl). This serves to benchmark the environment. 
 
-See [learning/README.md] for details. 
+See [learning/README.md](learning/README.md) for details. 
 
 ## Contributing 
 
