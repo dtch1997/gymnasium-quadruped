@@ -21,12 +21,9 @@ make install
 
 ## Learning
 
-This repository contains a simple PPO implementation in `learning/ppo.py`, adapted from [CleanRL](https://github.com/vwxyzjn/cleanrl).
+This repository contains a simple PPO implementation in `learning/ppo.py`, adapted from [CleanRL](https://github.com/vwxyzjn/cleanrl). This serves to benchmark the environment. 
 
-To install learning-related dependencies, run:
-```bash
-poetry install --with learning
-```
+See [learning/README.md] for details. 
 
 ## Contributing 
 
