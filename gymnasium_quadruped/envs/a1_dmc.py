@@ -16,6 +16,7 @@
 """Quadruped Domain."""
 
 import collections
+import os
 
 import numpy as np
 from dm_control import mujoco
@@ -23,6 +24,7 @@ from dm_control.mujoco.wrapper import mjbindings
 from dm_control.rl import control
 from dm_control.suite import base, common
 from dm_control.utils import containers, rewards, xml_tools
+from dm_control.utils import io as resources
 from lxml import etree
 from scipy import ndimage
 
@@ -48,11 +50,26 @@ _WALLS = ["wall_px", "wall_py", "wall_nx", "wall_ny"]
 
 SUITE = containers.TaggedTasks()
 
+_ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+
+
+def read_model(model_filename):
+    """Reads a model XML file and returns its contents as a string."""
+    return resources.GetResource(os.path.join(_ROOT_DIR, model_filename))
+
+
+def read_world_model(model_filename):
+    """Reads a model XML file and returns its contents as a string."""
+    xml_string = common.read_model("quadruped.xml")
+    parser = etree.XMLParser(remove_blank_text=True)
+    mjcf = etree.XML(xml_string, parser)
+    return mjcf
+
 
 def make_model(floor_size=None, terrain=False, rangefinders=False, walls_and_ball=False):
     """Returns the model XML string."""
     # TODO: Fix XML path
-    xml_string = common.read_model("unitree_a1/a1.xml")
+    xml_string = read_model("unitree_a1/a1.xml")
     parser = etree.XMLParser(remove_blank_text=True)
     mjcf = etree.XML(xml_string, parser)
 
