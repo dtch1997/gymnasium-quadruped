@@ -25,7 +25,7 @@ class A1Env(MujocoEnv, utils.EzPickle):
 
     def __init__(
         self,
-        xml_file="unitree_a1/a1.xml",
+        xml_file="unitree_a1/scene.xml",
         ctrl_cost_weight=0.5,
         use_contact_forces=False,
         contact_cost_weight=5e-4,
@@ -183,3 +183,19 @@ class A1Env(MujocoEnv, utils.EzPickle):
         observation = self._get_obs()
 
         return observation
+
+    def _initialize_simulation(self):
+        super()._initialize_simulation()
+        # Set the joint positions
+        self.data.qpos[7] = 0.0
+        self.data.qpos[8] = 0.8
+        self.data.qpos[9] = -1.6
+        self.data.qpos[10] = 0.0
+        self.data.qpos[11] = 0.8
+        self.data.qpos[12] = -1.6
+        self.data.qpos[13] = 0.0
+        self.data.qpos[14] = 0.8
+        self.data.qpos[15] = -1.6
+        self.data.qpos[16] = 0.0
+        self.data.qpos[17] = 0.8
+        self.data.qpos[18] = -1.6
