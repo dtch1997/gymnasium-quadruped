@@ -26,7 +26,7 @@ class A1Env(MujocoEnv, utils.EzPickle):
     def __init__(
         self,
         xml_file="unitree_a1/scene.xml",
-        ctrl_cost_weight=0.5,
+        ctrl_cost_weight=0.01,  # 0.5,
         use_contact_forces=False,
         contact_cost_weight=5e-4,
         healthy_reward=1.0,
