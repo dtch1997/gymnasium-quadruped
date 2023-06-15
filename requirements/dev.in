@@ -1,0 +1,7 @@
+-r base.in
+ruff
+pytest
+pytest-xdist
+pip-compile-multi
+black
+isort

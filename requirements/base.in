@@ -1,0 +1,37 @@
+# Common
+numpy
+# RL environments
+dm-control
+gym<0.26
+dm-env
+robosuite==1.4
+# JAX
+-f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+jax[cuda]<0.4.0
+flax<=0.6.3
+# DeepMind JAX Ecosystem
+rlax
+dm-haiku
+optax
+chex
+dm-acme @ git+https://github.com/deepmind/acme.git@4525ade
+# TF
+tensorflow-cpu~=2.8.0
+# Need to pinned against a version of TF
+tensorflow-probability~=0.16.0
+# Need to pinned against a version of TF
+dm-reverb==0.7.2
+# Need to pinned against a version of TF
+dm-launchpad==0.5.2
+dm-sonnet
+tensorflow-datasets
+rlds
+# OT
+POT
+ott-jax~=0.3.0
+# Logging
+wandb
+# Configuration
+ml_collections
+--extra-index-url https://download.pytorch.org/whl/cpu
+robomimic
