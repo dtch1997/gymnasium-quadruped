@@ -1,4 +1,4 @@
-from cdrl.examples.tdmpc.configs import default
+from learning.tdmpc.configs import default
 
 
 def get_config():
