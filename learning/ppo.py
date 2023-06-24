@@ -80,11 +80,9 @@ def parse_args():
 
 def make_env(env_id, idx, capture_video, run_name, gamma):
     def thunk():
-        env = gym.make(env_id, render_mode="rgb_array") if capture_video else gym.make(env_id)
+        env = gym.make(env_id)
         env = gym.wrappers.FlattenObservation(env)  # deal with dm_control's Dict observation space
         env = gym.wrappers.RecordEpisodeStatistics(env)
-        if capture_video and idx == 0:
-            env = gym.wrappers.RecordVideo(env, f"videos/{run_name}")
         env = gym.wrappers.ClipAction(env)
         env = gym.wrappers.NormalizeObservation(env)
         env = gym.wrappers.TransformObservation(env, lambda obs: np.clip(obs, -10, 10))
@@ -301,6 +299,33 @@ if __name__ == "__main__":
 
             if args.target_kl is not None and approx_kl > args.target_kl:
                 break
+
+        # Record video of the current agent
+        if args.capture_video and update % 10 == 0:
+
+            @torch.no_grad()
+            def record_video(global_step):
+                eval_env = gym.make(args.env_id, render_mode="rgb_array")
+                eval_env = gym.wrappers.FlattenObservation(eval_env)  # deal with dm_control's Dict observation space
+                eval_env = gym.wrappers.RecordEpisodeStatistics(eval_env)
+                eval_env = gym.wrappers.RecordVideo(eval_env, f"videos/{run_name}", name_prefix=str(global_step))
+                eval_env = gym.wrappers.ClipAction(eval_env)
+                eval_env = gym.wrappers.NormalizeObservation(eval_env)
+                eval_env = gym.wrappers.TransformObservation(eval_env, lambda obs: np.clip(obs, -10, 10))
+                eval_env = gym.wrappers.NormalizeReward(eval_env, gamma=args.gamma)
+                eval_env = gym.wrappers.TransformReward(eval_env, lambda reward: np.clip(reward, -10, 10))
+                obs, _ = eval_env.reset(seed=args.seed)
+
+                done = False
+                while not done:
+                    obs_th = torch.Tensor(obs).unsqueeze(0).to(device)
+                    action_th = agent.get_action_and_value(obs_th)[0]
+                    action = action_th.squeeze(0).cpu().numpy()
+                    obs, reward, terminated, truncated, infos = eval_env.step(action)
+                    done = np.logical_or(terminated, truncated)
+                eval_env.close()
+
+            record_video(global_step)
 
         y_pred, y_true = b_values.cpu().numpy(), b_returns.cpu().numpy()
         var_y = np.var(y_true)
