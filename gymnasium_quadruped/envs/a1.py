@@ -26,7 +26,7 @@ class A1Env(MujocoEnv, utils.EzPickle):
     def __init__(
         self,
         xml_file="unitree_a1/scene.xml",
-        ctrl_cost_weight=0.5,
+        ctrl_cost_weight=0.01,  # 0.5,
         use_contact_forces=False,
         contact_cost_weight=5e-4,
         healthy_reward=1.0,
@@ -38,8 +38,8 @@ class A1Env(MujocoEnv, utils.EzPickle):
         **kwargs,
     ):
         current_dir = os.path.dirname(__file__)
-        root_dir = os.path.join(current_dir, "..", "..")
-        xml_file = os.path.join(root_dir, xml_file)
+        root_dir = os.path.join(current_dir, "..")
+        xml_file = os.path.join(root_dir, "assets", xml_file)
         xml_file = os.path.abspath(xml_file)
         utils.EzPickle.__init__(
             self,
