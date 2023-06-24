@@ -38,8 +38,8 @@ class A1Env(MujocoEnv, utils.EzPickle):
         **kwargs,
     ):
         current_dir = os.path.dirname(__file__)
-        root_dir = os.path.join(current_dir, "..", "..")
-        xml_file = os.path.join(root_dir, xml_file)
+        root_dir = os.path.join(current_dir, "..")
+        xml_file = os.path.join(root_dir, "assets", xml_file)
         xml_file = os.path.abspath(xml_file)
         utils.EzPickle.__init__(
             self,
